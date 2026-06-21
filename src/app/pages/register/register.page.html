@@ -1,0 +1,35 @@
+<ion-content style="--background: #fafaf7;">
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 32px;">
+
+    <img src="/assets/family.png" style="width: 150px; margin-bottom: 24px;">
+
+    <h2 style="color: #473C33; margin-bottom: 4px;">Criar conta</h2>
+    <p style="color: #473C33; opacity: 0.6; margin-top: 0; margin-bottom: 32px;">Vamos começar!</p>
+
+    <ion-item style="width: 100%; border-radius: 12px; margin-bottom: 12px;">
+      <ion-label position="stacked">E-mail</ion-label>
+      <ion-input [(ngModel)]="email" type="email" placeholder="seu@email.com"></ion-input>
+    </ion-item>
+
+    <ion-item style="width: 100%; border-radius: 12px; margin-bottom: 12px;">
+      <ion-label position="stacked">Senha</ion-label>
+      <ion-input [(ngModel)]="password" type="password" placeholder="••••••••"></ion-input>
+    </ion-item>
+
+    <ion-item style="width: 100%; border-radius: 12px; margin-bottom: 24px;">
+      <ion-label position="stacked">Confirmar senha</ion-label>
+      <ion-input [(ngModel)]="confirmPassword" type="password" placeholder="••••••••"></ion-input>
+    </ion-item>
+
+    <p *ngIf="errorMsg" style="color: #FDA769; margin-bottom: 12px;">{{ errorMsg }}</p>
+
+    <ion-button expand="block" style="width: 100%; margin-bottom: 12px;" (click)="register()">
+      Cadastrar
+    </ion-button>
+
+    <ion-button expand="block" fill="clear" routerLink="/login" style="width: 100%;">
+      Já tenho conta? Entrar
+    </ion-button>
+
+  </div>
+</ion-content>

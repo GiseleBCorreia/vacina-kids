@@ -1,37 +1,150 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
+@import '@ionic/angular/css/core.css';
+@import '@ionic/angular/css/normalize.css';
+@import '@ionic/angular/css/structure.css';
+@import '@ionic/angular/css/typography.css';
+:root {
+  --ion-color-primary: #ABC270;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-secondary: #FEC868;
+  --ion-color-warning: #FDA769;
+  --ion-color-dark: #473C33;
+  --ion-text-color: #473C33;
+  --ion-background-color: #fafaf7;
+  --ion-card-background: #ffffff;
+}
 
-/* Core CSS required for Ionic components to work properly */
-@import "@ionic/angular/css/core.css";
+ion-content {
+  --background: #fafaf7;
+}
 
-/* Basic CSS for apps built with Ionic */
-@import "@ionic/angular/css/normalize.css";
-@import "@ionic/angular/css/structure.css";
-@import "@ionic/angular/css/typography.css";
-@import "@ionic/angular/css/display.css";
+/* Imagem de fundo via pseudo-elemento */
+ion-content::before {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 350px;
+  height: 350px;
+  background-image: url('/assets/OIP-removebg-preview.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center bottom;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
 
-/* Optional CSS utils that can be commented out */
-@import "@ionic/angular/css/padding.css";
-@import "@ionic/angular/css/float-elements.css";
-@import "@ionic/angular/css/text-alignment.css";
-@import "@ionic/angular/css/text-transformation.css";
-@import "@ionic/angular/css/flex-utils.css";
+ion-card {
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(71, 60, 51, 0.1);
+  border-left: 4px solid #ABC270;
+  position: relative;
+  z-index: 1;
+}
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+ion-card-title {
+  color: #473C33 !important;
+  font-size: 1rem;
+  font-weight: 600;
+}
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+ion-card-content {
+  color: #473C33;
+}
+
+ion-menu ion-list-header {
+  color: #ABC270;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+ion-menu ion-item.selected {
+  --color: #ABC270;
+  font-weight: 600;
+}
+
+ion-toolbar {
+  --background: #ABC270;
+  --color: #ffffff;
+}
+
+ion-back-button {
+  --color: #ffffff;
+}
+
+ion-menu-button {
+  --color: #ffffff;
+}
+
+ion-button[color="primary"] {
+  --background: #ABC270;
+  --color: #ffffff;
+  --border-radius: 12px;
+}
+
+ion-button[color="danger"] {
+  --color: #FDA769;
+}
+
+.badge-pending {
+  background: #FDA769;
+  color: white;
+  border-radius: 12px;
+  padding: 2px 10px;
+  font-size: 0.85rem;
+}
+
+.badge-ok {
+  background: #ABC270;
+  color: white;
+  border-radius: 12px;
+  padding: 2px 10px;
+  font-size: 0.85rem;
+}
+
+.vaccine-summary {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.vaccine-summary span {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.summary-applied {
+  background: #e8f5e9;
+  color: #ABC270;
+}
+
+.summary-overdue {
+  background: #fff3e0;
+  color: #FDA769;
+}
+
+.summary-upcoming {
+  background: #fff8e1;
+  color: #FEC868;
+}
+
+.inline-form {
+  background: #fff8e1;
+  padding: 16px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  border-left: 4px solid #FEC868;
+}
+
+.inline-form h3 {
+  margin-top: 0;
+  color: #473C33;
+}
+ion-toolbar {
+  --background: #ABC270;
+  --color: #ffffff;
+}

@@ -6,30 +6,33 @@
 
 <ion-content class="ion-padding">
 
-  <ion-card>
+  <h2>Olá, Gisele 👋</h2>
+  <p>Acompanhe a situação vacinal da sua família.</p>
+
+  <ion-card button routerLink="/tabs/children">
     <ion-card-header>
-      <ion-card-title>👧 Crianças</ion-card-title>
+      <ion-card-title>👧 Crianças cadastradas</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      2 cadastradas
+      {{ childrenCount }} crianças acompanhadas
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+  <ion-card button routerLink="/tabs/children">
     <ion-card-header>
       <ion-card-title>⚠️ Pendências</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      2 vacinas atrasadas
+      {{ totalPending }} vacinas precisam de atenção
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+  <ion-card button routerLink="/tabs/campaigns">
     <ion-card-header>
-      <ion-card-title>📢 Campanhas</ion-card-title>
+      <ion-card-title>📢 Campanhas ativas</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      1 campanha ativa
+      {{ campaignCount }} campanha disponível
     </ion-card-content>
   </ion-card>
 

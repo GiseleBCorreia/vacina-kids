@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div style="text-align: center; padding: 24px 0;">
+    <!-- Foto de perfil -->
+    <div style="position: relative; width: 90px; margin: 0 auto 12px;">
+      <div style="width: 90px; height: 90px; border-radius: 50%; overflow: hidden; background: #e8f5e9; display: flex; align-items: center; justify-content: center;">
+        <img *ngIf="photoUrl" [src]="photoUrl" style="width: 100%; height: 100%; object-fit: cover;">
+        <span *ngIf="!photoUrl" style="font-size: 3rem;">👩</span>
+      </div>
+      <label style="position: absolute; bottom: 0; right: 0; background: #ABC270; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: white; font-size: 0.9rem;">
+        📷
+        <input type="file" accept="image/*" (change)="onPhotoChange($event)" style="display: none;">
+      </label>
+    </div>
+
+    <!-- Nome editável -->
+    <div *ngIf="!editingName" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+      <h2 style="color: #473C33; margin: 0;">{{ nickname }}</h2>
+      <span (click)="editingName = true" style="cursor: pointer; color: #ABC270;">✏️</span>
+    </div>
+
+    <div *ngIf="editingName" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 0 32px;">
+      <ion-input [(ngModel)]="nickname" style="border-bottom: 1px solid #ABC270; color: #473C33;"></ion-input>
+      <ion-button fill="clear" color="primary" (click)="saveName()">✔</ion-button>
+    </div>
+
+    <p style="color: #473C33; opacity: 0.6; margin: 4px 0 0;">{{ email }}</p>
+  </div>
+
+  <ion-card button routerLink="/tabs/children">
+  <ion-card-content>
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
+      <span>👧 Minhas crianças</span>
+      <span style="color: #ABC270;">Ver todas →</span>
+    </div>
+  </ion-card-content>
+</ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <p style="margin: 0; color: #473C33; opacity: 0.6; font-size: 0.85rem;">Versão do app</p>
+      <p style="margin: 4px 0 0; color: #473C33;">VacinaKids v1.0.0</p>
+    </ion-card-content>
+  </ion-card>
+
+  <br>
+
+  <div style="display: flex; justify-content: center;">
+  <ion-button color="danger" fill="outline" (click)="logout()" style="width: 60%;">
+    Sair da conta
+  </ion-button>
+</div>
+
+</ion-content>

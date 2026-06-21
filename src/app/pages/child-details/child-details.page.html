@@ -1,0 +1,140 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/children"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ child?.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Avatar + nome -->
+  <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
+    <div style="width: 64px; height: 64px; border-radius: 50%; overflow: hidden;">
+      <img [src]="child?.sex === 'F' ? '/assets/girl.png' : '/assets/boy.png'" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+    <div>
+      <p style="margin: 0; font-size: 0.8rem; color: #473C33; opacity: 0.6;">Aqui está o resumo de</p>
+      <h2 style="margin: 0; color: #473C33;">{{ child?.name }}</h2>
+    </div>
+  </div>
+
+  <!-- 4 cards coloridos -->
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 24px;">
+    <div style="background: #ABC270; border-radius: 12px; padding: 12px 8px; text-align: center; color: white;">
+      <div style="font-size: 1.4rem; font-weight: 700;">{{ appliedCount }}</div>
+      <div style="font-size: 0.7rem;">Tomadas</div>
+    </div>
+    <div style="background: #FDA769; border-radius: 12px; padding: 12px 8px; text-align: center; color: white;">
+      <div style="font-size: 1.4rem; font-weight: 700;">{{ overdueCount }}</div>
+      <div style="font-size: 0.7rem;">Pendentes</div>
+    </div>
+    <div style="background: #FEC868; border-radius: 12px; padding: 12px 8px; text-align: center; color: white;">
+      <div style="font-size: 1.4rem; font-weight: 700;">{{ upcomingCount }}</div>
+      <div style="font-size: 0.7rem;">Agendadas</div>
+    </div>
+    <div style="background: #473C33; border-radius: 12px; padding: 12px 8px; text-align: center; color: white;">
+      <div style="font-size: 1.4rem; font-weight: 700;">{{ appliedCount }}</div>
+      <div style="font-size: 0.7rem;">Concluídas</div>
+    </div>
+  </div>
+
+  <!-- Próxima vacina -->
+  <ion-card *ngIf="nextVaccine">
+    <ion-card-content>
+      <p style="color: #ABC270; font-weight: 600; margin: 0 0 8px;">Próxima vacina</p>
+      <h3 style="margin: 0 0 4px; color: #473C33;">{{ nextVaccine?.name }}</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="color: #473C33; opacity: 0.6; font-size: 0.85rem;">📅 {{ nextVaccine?.scheduledDate | date:'dd/MM/yyyy' }}</span>
+        <span style="color: #FDA769; font-size: 0.85rem;">{{ daysUntilNext > 0 ? 'Faltam ' + daysUntilNext + ' dias' : 'Atrasada!' }}</span>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Progresso -->
+  <ion-card>
+    <ion-card-content>
+      <p style="color: #ABC270; font-weight: 600; margin: 0 0 8px;">Progresso da vacinação</p>
+      <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+        <span style="font-size: 1.5rem; font-weight: 700; color: #473C33;">{{ progressPercent }}%</span>
+        <span style="color: #473C33; opacity: 0.6; font-size: 0.85rem;">{{ appliedCount }} de {{ totalVaccines }} vacinas</span>
+      </div>
+      <div style="background: #e0e0e0; border-radius: 8px; height: 8px;">
+        <div [style.width.%]="progressPercent" style="background: #ABC270; height: 8px; border-radius: 8px;"></div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botão adicionar vacina -->
+  <ion-button expand="block" fill="outline" color="primary" (click)="toggleVaccineForm()" style="margin-bottom: 16px;">
+    {{ showVaccineForm ? 'Fechar' : '+ Adicionar Vacina' }}
+  </ion-button>
+
+  <!-- Formulário inline de vacinas -->
+  <div *ngIf="showVaccineForm" class="inline-form">
+    <h3 style="margin-top: 0;">Adicionar Vacina</h3>
+
+    <ion-item>
+      <ion-label position="stacked">Tipo</ion-label>
+      <ion-select [(ngModel)]="vaccineType" placeholder="Selecione">
+        <ion-select-option value="applied">✅ Já foi aplicada</ion-select-option>
+        <ion-select-option value="scheduled">📅 Agendar/Prevista</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">{{ vaccineType === 'applied' ? 'Data de aplicação *' : 'Data prevista *' }}</ion-label>
+      <ion-input [(ngModel)]="vaccineDate" type="date"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Nome da vacina *</ion-label>
+      <ion-input [(ngModel)]="vaccineSearch" (ngModelChange)="filterVaccines()" placeholder="Digite para buscar..."></ion-input>
+    </ion-item>
+
+    <div *ngIf="filteredVaccines.length > 0" style="background: white; border-radius: 8px; margin-top: 4px;">
+      <div *ngFor="let v of filteredVaccines" (click)="selectVaccine(v)" style="padding: 12px 16px; border-bottom: 1px solid #eee; cursor: pointer;">
+        {{ isAlreadyApplied(v) ? '✅' : '💉' }} {{ v }}
+      </div>
+    </div>
+
+    <div *ngIf="selectedVaccine" style="margin-top: 12px; padding: 12px; background: #ABC270; border-radius: 8px; color: white;">
+      💉 {{ selectedVaccine }} selecionada
+    </div>
+
+    <br>
+
+    <ion-button expand="block" color="primary" (click)="applyVaccine(selectedVaccine)" [disabled]="!selectedVaccine">
+      Registrar Vacina
+    </ion-button>
+  </div>
+
+  <!-- Histórico -->
+  <h3 style="color: #473C33;">Histórico Vacinal</h3>
+
+  <ion-card *ngFor="let vaccine of child?.vaccines">
+    <ion-card-content>
+      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <strong>{{ vaccine.name }}</strong>
+          <br>
+          Prevista: {{ vaccine.scheduledDate | date:'dd/MM/yyyy' }}
+          <div *ngIf="getStatus(vaccine) === 'applied'" style="color: #ABC270; margin-top: 4px;">
+            ✅ Aplicada em {{ vaccine.appliedDate | date:'dd/MM/yyyy' }}
+          </div>
+          <div *ngIf="getStatus(vaccine) === 'overdue'" style="color: #FDA769; margin-top: 4px;">
+            ❗ Atrasada — ainda não aplicada
+          </div>
+          <div *ngIf="getStatus(vaccine) === 'upcoming'" style="color: #FEC868; margin-top: 4px;">
+            🕐 Pendente — data futura
+          </div>
+        </div>
+        <ion-button fill="clear" color="danger" (click)="removeVaccine(vaccine.name)">
+          🗑️
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

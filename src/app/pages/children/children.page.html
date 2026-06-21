@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>VacinaKids</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/welcome">
+        Sair
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <h2 style="color: #473C33; margin-bottom: 4px; margin-left: 20px;">Minhas crianças</h2>
+  <p style="color: #473C33; opacity: 0.6; margin-top: 0; margin-bottom: 24px; margin-left: 20px;">Gerencie as vacinas dos seus filhos.</p>
+
+  <!-- Lista de crianças -->
+  <ion-card *ngFor="let child of filteredChildren" style="border-radius: 16px; margin-bottom: 12px;">
+    <ion-card-content style="padding: 16px;">
+
+      <div style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;" (click)="navigateToChild(child.id)">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <div style="width: 52px; height: 52px; border-radius: 50%; overflow: hidden;">
+            <img [src]="child.sex === 'F' ? '/assets/girl.png' : '/assets/boy.png'" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div>
+            <h3 style="margin: 0; color: #473C33; font-size: 1rem;">{{ child.name }}</h3>
+            <p style="margin: 2px 0 0; color: #473C33; opacity: 0.6; font-size: 0.85rem;">{{ child.age }} anos</p>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 4px;">
+          <ion-button fill="clear" (click)="toggleChildOptions($event, child.id)">
+            ✏️
+          </ion-button>
+          <span style="color: #ABC270; font-size: 1.2rem;">›</span>
+        </div>
+      </div>
+
+      <!-- Opções -->
+      <div *ngIf="openOptionsId === child.id" style="margin-top: 12px; border-top: 1px solid #eee; padding-top: 12px;">
+        <ion-button fill="outline" color="danger" size="small" (click)="removeChild($event, child.id)">
+          🗑️ Remover criança
+        </ion-button>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Card adicionar criança -->
+  <ion-card button (click)="toggleForm()" style="border-radius: 16px; margin-bottom: 12px; border: 2px dashed #ABC270; box-shadow: none; background: transparent;">
+    <ion-card-content style="padding: 16px;">
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <div style="width: 52px; height: 52px; border-radius: 50%; background: #e8f5e9; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #ABC270; font-weight: 700;">
+          +
+        </div>
+        <span style="color: #ABC270; font-weight: 600;">Adicionar criança</span>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Formulário inline -->
+  <div *ngIf="showForm" class="inline-form">
+    <h3>Nova Criança</h3>
+
+    <ion-item>
+      <ion-label position="stacked">Nome completo *</ion-label>
+      <ion-input [(ngModel)]="newName" placeholder="Nome completo da criança"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">CPF *</ion-label>
+      <ion-input [(ngModel)]="newCpf" placeholder="000.000.000-00" maxlength="14"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Data de nascimento *</ion-label>
+      <ion-input [(ngModel)]="newBirthDate" type="date"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Sexo</ion-label>
+      <ion-select [(ngModel)]="newSex" placeholder="Selecione">
+        <ion-select-option value="F">👧 Menina</ion-select-option>
+        <ion-select-option value="M">👦 Menino</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <br>
+
+    <ion-button expand="block" color="primary" (click)="saveChild()">
+      Cadastrar
+    </ion-button>
+
+    <ion-button expand="block" fill="clear" color="medium" (click)="toggleForm()">
+      Cancelar
+    </ion-button>
+  </div>
+
+</ion-content>
