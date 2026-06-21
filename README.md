@@ -43,6 +43,9 @@ https://vacinakids.netlify.app
 Gisele Bittencourt Correia
 
 LinkedIn: linkedin.com/in/giselebcorreia
+
 GitHub: github.com/GiseleBCorreia
+
 E-mail: giselehmcorreia@gmail.com
+
 Celular: +55 21 967536288
