@@ -36,7 +36,7 @@ https://vacinakids.netlify.app
 
 * O aplicativo não utiliza banco de dados.
 * O login e o cadastro são simulados para fins de demonstração, qualquer e-mail ou senha permitirá o acesso ao aplicativo.
-* Os dados previamente cadastrados foram incluídos intencionalmente para exemplificar o funcionamento da aplicação, como por exemplo os dados de Ana e Pedro.
+* Os dados previamente cadastrados foram incluídos intencionalmente para exemplificar o funcionamento da aplicação, como por exemplo, os dados de Ana e Pedro.
 
 ## 👩‍💻 Desenvolvido por
 
